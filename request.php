@@ -87,6 +87,9 @@ switch ( $_GET[ 'req' ] ) {
 		break;
 	case 'usercheck':
 		break;
+	case 'index':
+		$data = 'INDEX PAGE';
+		break;
 }
 
 if ( isset( $data ) ) {
