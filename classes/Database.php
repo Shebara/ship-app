@@ -209,6 +209,32 @@ class Database
 	}
 
 	/**
+	 * Check if tables already exist, import SQL file if they don't
+	 *
+	 * @param $db - database name
+	 *
+	 * @return integer
+	 */
+	public function checkTables( $db ) {
+		$sql = "SHOW TABLES FROM $db LIKE 'user%'";
+		$query = $this->dbQuery( $sql, 'Exists check' );
+
+		if ( is_null( $query->fetch_object() ) || $query->num_rows < 4 ) {
+			if ( ! is_file( 'db.sql' ) ) {
+				getError( 'SQL import', 'No SQL File.', 404 );
+			}
+
+			$file = file_get_contents( 'db.sql' );
+
+			$this->conn->multi_query( $file );
+
+			return FALSE;
+		} else {
+			return TRUE;
+		}
+	}
+
+	/**
 	 * Database class constructor:
 	 *  - create database if it doesn't exist
 	 *  - import SQL if the profiles table doesn't exist

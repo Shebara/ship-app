@@ -32,6 +32,94 @@ const deleteUser = () => {
 };
 
 /**
+ * Display an error without keeping the form hidden
+ *
+ * @param error - error content
+ * @param $data - original form to be displayed again
+ */
+const softError = ( error, $data ) => {
+    error = typeof error === 'string' ? error : error.text;
+
+    spinner();
+    $( '#soft-error' ).removeClass( 'd-none' ).html( error );
+    $data.removeClass( 'was-validated' ).removeClass( 'd-none' );
+};
+
+/**
+ * Error function
+ *
+ * @param error - error content
+ * @param silent - should the spinners and errors not be displayed?
+ * @param $data - original form for soft errors
+ */
+const error = ( error, silent, $data ) => {
+    error = error.responseJSON ? error.responseJSON : error;
+
+    if ( error.soft ) {
+        softError( error, $data );
+
+        return;
+    }
+
+    const prefix = error.db ? 'DB' : 'API';
+    const code = error.code ? `${prefix} Error #${error.code}` : false;
+    const text = error.text || false;
+
+    if ( ! silent ) {
+        spinner();
+        message( true, code, text );
+    }
+
+    console.log( error );
+};
+
+/**
+ * POST request
+ *
+ * @param param - request parameter
+ * @param data - POST data
+ * @param success - success callback
+ * @param error - error callback (optional)
+ * @param file - is it a file? (default: false)
+ */
+function post( param, data, success, error, file ) {
+    const user = getUser();
+    file = file || false;
+    const object = {
+        url: 'request/' + param,
+        data: data,
+        dataType: 'json',
+        success: success,
+        error: error
+    };
+
+    if ( file ) {
+        object.contentType = false;
+        object.processData = false;
+    }
+    if ( user !== null && user.token ) {
+        object.beforeSend = ( xhr ) => {
+            xhr.setRequestHeader( 'Authorization', user.token );
+        };
+    }
+
+    $.post( object );
+}
+
+/**
+ * Set page title dynamically
+ *
+ * @param title
+ */
+function setTitle( title ) {
+    const $title = $( 'title' );
+    const site = $title.html().split( ' | ' ).slice( -1 ).pop();
+
+    $( 'h1' ).html( title );
+    $title.html( `${title} | ${site}` );
+}
+
+/**
  * Universal message display/hide function
  *
  * @param show - show if true, hide if false (default: false)
@@ -93,3 +181,12 @@ function getUser() {
 
     return null;
 }
+
+/**
+ * On document ready, verify login
+ */
+$( document ).ready( () => {
+    post( 'usercheck', {}, ( response ) => {
+        console.log( response );
+    } );
+} ) ;
