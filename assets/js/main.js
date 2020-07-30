@@ -188,6 +188,28 @@ function getUser() {
 }
 
 /**
+ * Submit handler by form ID and request name
+ *
+ * @param name
+ */
+function formSubmit( name ) {
+    const $form = $( '#' + name );
+
+    $form.submit( ( e ) => {
+        e.preventDefault();
+
+        $( '#soft-error' ).addClass( 'd-none' );
+        $form.addClass( 'was-validated' );
+
+        if ( $form[ 0 ].checkValidity() ) {
+            post( name, $form.serializeArray(), ( response ) => {
+                console.log( response );
+            }, $form );
+        }
+    } );
+}
+
+/**
  * On document ready, verify login
  */
 $( document ).ready( () => {
