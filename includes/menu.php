@@ -12,6 +12,9 @@
                 <li class="nav-item <?php if ( $page === 'index' ) echo 'active' ?>">
                     <a class="nav-link" href="">Home</a>
                 </li>
+                <li id="admin-link" class="nav-item <?php if ( $page === 'admin' ) echo 'active' ?><?php if ( ! $admin ) echo ' d-none' ?>">
+                    <a class="nav-link" id="adminLink" href="admin">Administration</a>
+                </li>
             </ul>
             <div class="my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">

@@ -85,7 +85,7 @@ switch ( $_GET[ 'req' ] ) {
 	default:
 		getError( 'request_init', 'Invalid `req` parameter.' );
 		break;
-	case 'test':
+	case 'user_check':
 		break;
 }
 
