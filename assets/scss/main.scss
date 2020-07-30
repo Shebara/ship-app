@@ -1,0 +1,33 @@
+@import 'vars';
+
+body {
+  background-color: $background;
+  color: $firstColor;
+  text-align: center;
+  .canvas {
+    background-color: $canvas;
+    position: relative;
+    h1 {
+      padding-top: 16px;
+    }
+    .content {
+      .admin-avatar {
+        max-height: 85px;
+        @media (max-width: $breakpointSmall) {
+          display: none !important;
+        }
+      }
+      padding: 5px 5px 20px;
+      @media (min-width: $breakpoint) {
+        padding: 20px 40px 40px;
+      }
+    }
+    @media (min-width: $breakpoint) {
+      max-width: $breakpoint;
+      border-left: $border;
+      border-right: $border;
+      border-bottom: $border;
+      margin: 0 auto 10px;
+    }
+  }
+}

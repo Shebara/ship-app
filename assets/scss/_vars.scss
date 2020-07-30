@@ -1,0 +1,19 @@
+$background: #dfdfdf;
+$canvas: #fff;
+$firstColor: #333;
+$secondColor: #BBB;
+
+$breakpoint: 1200px;
+$breakpointSmall: 600px;
+
+$border: 1px solid $secondColor;
+$borderHover: 1px solid $firstColor;
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
