@@ -93,12 +93,3 @@ function getUser() {
 
     return null;
 }
-
-/**
- * On document ready, verify login
- */
-$( document ).ready( () => {
-    requestData( 'user_check', {}, ( response ) => {
-        console.log( response );
-    } );
-} ) ;
