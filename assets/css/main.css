@@ -6,6 +6,28 @@
     transform: rotate(360deg);
   }
 }
+.navbar-brand img {
+  height: 30px;
+}
+
+.auth-form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.text-truncate {
+  padding-bottom: 2px;
+}
+
+.mr-auto .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+
+.white-space-pre {
+  white-space: pre-line;
+}
+
 body {
   background-color: #dfdfdf;
   color: #333;
