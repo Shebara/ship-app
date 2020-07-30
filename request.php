@@ -90,6 +90,9 @@ switch ( $_GET[ 'req' ] ) {
 	case 'index':
 		$data = 'INDEX PAGE';
 		break;
+	case 'login':
+		$data = $_POST;
+		break;
 }
 
 if ( isset( $data ) ) {

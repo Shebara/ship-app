@@ -25,7 +25,14 @@ if ( ! is_file( $path ) ) {
 			$title = 'Main Page';
 			$desc = 'Listing of public user profiles.';
 
-			array_push( $keywords, 'List' );
+			array_push( $keywords, 'Welcome' );
+			break;
+		case 'login':
+			$title = 'Log in';
+			$desc = 'Log in to our portal.';
+
+			array_push( $keywords, 'Authentication' );
+			array_push( $keywords, 'Login' );
 			break;
 	}
 }

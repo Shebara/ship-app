@@ -50,13 +50,13 @@ const softError = ( error, $data ) => {
  *
  * @param error - error content
  * @param silent - should the spinners and errors not be displayed?
- * @param $data - original form for soft errors
+ * @param $element - original form for soft errors
  */
-const error = ( error, silent, $data ) => {
+const defaultError = ( error, silent, $element ) => {
     error = error.responseJSON ? error.responseJSON : error;
 
     if ( error.soft ) {
-        softError( error, $data );
+        softError( error, $element );
 
         return;
     }
@@ -66,6 +66,7 @@ const error = ( error, silent, $data ) => {
     const text = error.text || false;
 
     if ( ! silent ) {
+        $element.addClass( 'd-none' );
         spinner();
         message( true, code, text );
     }
@@ -79,18 +80,22 @@ const error = ( error, silent, $data ) => {
  * @param param - request parameter
  * @param data - POST data
  * @param success - success callback
+ * @param $element - container element (optional)
  * @param error - error callback (optional)
  * @param file - is it a file? (default: false)
+ * @param silent - should the error be displayed "silently"? (default: false)
  */
-function post( param, data, success, error, file ) {
+function post( param, data, success, $element, error, file, silent ) {
     const user = getUser();
     file = file || false;
+    silent = silent || false;
+    $element = $element || false;
     const object = {
         url: 'request/' + param,
         data: data,
         dataType: 'json',
         success: success,
-        error: error
+        error: error ? error : ( data ) => { defaultError( data, silent, $element ) }
     };
 
     if ( file ) {
