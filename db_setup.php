@@ -2,7 +2,7 @@
 error_reporting( E_ALL );
 ini_set( 'display_errors', 'on' );
 
-require_once 'components/functions.php';
+require_once 'includes/functions.php';
 require_once 'classes/Database.php';
 
 // Setup the database through constructor

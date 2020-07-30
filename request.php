@@ -3,7 +3,7 @@ header( 'Content-Type: application/json' );
 
 require_once 'classes/Auth.php';
 require_once 'classes/Database.php';
-require_once 'components/functions.php';
+require_once 'includes/functions.php';
 
 if ( ! function_exists( 'getallheaders' ) ) {
 	/**
