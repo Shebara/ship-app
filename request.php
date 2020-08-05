@@ -105,6 +105,10 @@ switch ( $_GET[ 'req' ] ) {
 	case 'profile':
 		$id = getId( FALSE, $auth );
 		$data = $db->getProfile( $id );
+
+		if ( isset( $_POST[ 'id' ] ) ) {
+			unset( $data[ 'email' ] );
+		}
 		break;
 }
 
