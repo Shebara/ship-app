@@ -218,6 +218,12 @@ function formSubmit( name, callback ) {
  */
 $( document ).ready( () => {
     post( 'usercheck', {}, ( response ) => {
-        console.log( response );
+        const user = response.data;
+
+        if ( user ) {
+            saveUser( user );
+        } else {
+            deleteUser();
+        }
     } );
 } ) ;

@@ -93,6 +93,7 @@ switch ( $_GET[ 'req' ] ) {
 		getError( 'request_init', 'Invalid `req` parameter.' );
 		break;
 	case 'usercheck':
+		$data = $auth->whoIs();
 		break;
 	case 'index':
 		$data = 'INDEX PAGE';
