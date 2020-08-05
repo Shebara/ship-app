@@ -91,7 +91,7 @@ switch ( $_GET[ 'req' ] ) {
 		$data = 'INDEX PAGE';
 		break;
 	case 'login':
-		$data = $_POST;
+		$data = $db->logIn( $_POST );
 		break;
 }
 

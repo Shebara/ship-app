@@ -209,6 +209,50 @@ class Database
 	}
 
 	/**
+	 * Get the login data and check for the requested user
+	 *
+	 * @param $email
+	 * @param $password (optional)
+	 * @param $params (optional) - additional parameters to add to the request
+	 *
+	 * @return array
+	 */
+	private function getLoginData( $email, $password = FALSE, $params = [] ) {
+		if ( $password ) {
+			$password = $this->conn->real_escape_string( $password );
+		}
+
+		$softError = empty( $params[ 'hardError' ] );
+		$email = $this->conn->real_escape_string( $email );
+		$extendedWhere = $password ? " AND password = PASSWORD('$password')" : "";
+		$extendedJoin = isset( $params[ 'join' ] ) ? ' ' . $params[ 'join' ] : '';
+		$request = $password ? 'login_user_data' : 'user_data';
+		$data = $this->dbSelect(
+			$request,
+			isset( $params[ 'select' ] ) ? $params[ 'select' ] : "users.id, email, name, surname, rank, disabled, ship",
+			'users',
+			"email = '$email'$extendedWhere",
+			'INNER JOIN user_settings ON users.id = user_settings.id' . $extendedJoin
+		);
+
+		if ( count( $data ) === 0 ) {
+			$password
+				? getError( $request, 'Incorrect username or password.', 403, FALSE, TRUE, $softError )
+				: getError( $request, 'User not found.', 403, FALSE, TRUE, $softError );
+		} else {
+			$data = reset( $data );
+
+			if ( ! empty( $data[ 'disabled' ] ) ) {
+				getError( $request, 'This profile has been deactivated.', 403, FALSE, TRUE, $softError );
+			}
+		}
+
+		unset( $data[ 'disabled' ] );
+
+		return $data;
+	}
+
+	/**
 	 * Check if tables already exist, import SQL file if they don't
 	 *
 	 * @param $db - database name
@@ -267,5 +311,24 @@ class Database
 		}
 
 		$this->checkTables( $db );
+	}
+
+	/**
+	 * Log the user in, generate and return the token
+	 *
+	 * @param $login
+	 *
+	 * @return array
+	 */
+	public function logIn( $login ) {
+		$email = $login[ 'email' ];
+		$password = $login[ 'password' ];
+		$remember = ! empty( $login[ 'remember' ] );
+
+		$data = $this->getLoginData( $email, $password );
+
+		//TODO set session and generate the token
+
+		return $data;
 	}
 }
