@@ -3,6 +3,11 @@
  */
 $( document ).ready( () => {
     formSubmit( 'login', ( response ) => {
-        console.log( response );
+        const data = response.data;
+        const title = `Welcome, ${data.name}!`;
+
+        setTitle( title );
+        saveUser( data );
+        message( true, title, 'You have successfully logged in.' );
     } );
 } );

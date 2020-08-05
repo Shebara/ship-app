@@ -66,7 +66,6 @@ const defaultError = ( error, silent, $element ) => {
     const text = error.text || false;
 
     if ( ! silent ) {
-        $element.addClass( 'd-none' );
         spinner();
         message( true, code, text );
     }
@@ -137,6 +136,8 @@ function message( show, title, description ) {
     description = description || false;
 
     const $message = $( '#message' );
+    const $page = $( '#page' );
+    const $h1 = $( 'h1' );
 
     if ( title ) {
         $message.children( 'h3' ).html( title );
@@ -146,8 +147,12 @@ function message( show, title, description ) {
     }
 
     if ( show === false ) {
+        $h1.removeClass( 'd-none' );
         $message.addClass( 'd-none' );
+        $page.removeClass( 'd-none' );
     } else {
+        $h1.addClass( 'd-none' );
+        $page.addClass( 'd-none' );
         $message.removeClass( 'd-none' );
     }
 }
