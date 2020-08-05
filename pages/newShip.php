@@ -1,4 +1,4 @@
-<form id="rank" class="auth-form needs-validation" novalidate>
+<form id="ship" class="auth-form needs-validation" novalidate>
     <div id="soft-error" class="d-none pb-2 text-danger"></div>
 	<div class="form-group">
 		<label for="name">Name</label>
