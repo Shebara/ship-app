@@ -23,11 +23,12 @@ switch ( $page ) {
 		array_push( $keywords, 'Not Found' );
 		break;
 	case 'index':
-		$title = 'Main Page';
-		$desc = 'Listing of public user profiles.';
+		$title = 'Your Notifications';
+		$desc = 'Listing of your notifications.';
 		$path = FALSE;
 
 		array_push( $keywords, 'Welcome' );
+		array_push( $keywords, 'Notifications' );
 		break;
 	case 'ships':
 		$title = 'Ship Control';

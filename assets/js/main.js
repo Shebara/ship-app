@@ -21,6 +21,20 @@ const saveUser = ( user ) => {
 };
 
 /**
+ * Redirection function
+ *
+ * @param link - link to redirect to
+ * @param time - time to wait before redirection
+ */
+function redirect( link, time ) {
+    time = typeof time === 'undefined' ? 5 : 0;
+
+    setTimeout( () => {
+        window.location.href = link;
+    }, time * 1000 );
+}
+
+/**
  * Delete user cookie
  */
 const deleteUser = () => {

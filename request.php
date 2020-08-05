@@ -95,8 +95,11 @@ switch ( $_GET[ 'req' ] ) {
 	case 'usercheck':
 		$data = $auth->whoIs();
 		break;
-	case 'index':
+	case 'notifications':
 		$data = 'INDEX PAGE';
+		break;
+	case 'admin':
+		$data = 'ADMIN PAGE';
 		break;
 	case 'login':
 		$data = $db->logIn( $_POST );

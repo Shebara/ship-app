@@ -9,5 +9,6 @@ $( document ).ready( () => {
         setTitle( title );
         saveUser( data );
         message( true, title, 'You have successfully logged in.' );
+        redirect( '' );
     } );
 } );
