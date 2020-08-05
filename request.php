@@ -119,6 +119,11 @@ switch ( $_GET[ 'req' ] ) {
 	case 'notifications':
 		$data = 'INDEX PAGE';
 		break;
+	case 'ship':
+	case 'rank':
+	case 'crew':
+		$data = $_POST;
+		break;
 	case 'admin':
 		$user = verifyUser( $auth, $token );
 		$post = isset( $_POST[ 'page' ] ) ? $_POST[ 'page' ] : FALSE;
