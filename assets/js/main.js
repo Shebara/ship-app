@@ -191,8 +191,9 @@ function getUser() {
  * Submit handler by form ID and request name
  *
  * @param name
+ * @param callback
  */
-function formSubmit( name ) {
+function formSubmit( name, callback ) {
     const $form = $( '#' + name );
 
     $form.submit( ( e ) => {
@@ -202,9 +203,7 @@ function formSubmit( name ) {
         $form.addClass( 'was-validated' );
 
         if ( $form[ 0 ].checkValidity() ) {
-            post( name, $form.serializeArray(), ( response ) => {
-                console.log( response );
-            }, $form );
+            post( name, $form.serializeArray(), callback, $form );
         }
     } );
 }

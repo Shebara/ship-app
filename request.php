@@ -92,6 +92,8 @@ switch ( $_GET[ 'req' ] ) {
 		break;
 	case 'login':
 		$data = $db->logIn( $_POST );
+
+		$auth->logIn( $data );
 		break;
 }
 
