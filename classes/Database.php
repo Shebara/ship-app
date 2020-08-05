@@ -377,7 +377,8 @@ class Database
 			'email, users.name AS name, surname, ranks.name AS rank, ships.id AS ship_id, ships.name AS ship_name, registered_at',
 			'users',
 			"user_settings.disabled = 0 AND users.id = $id",
-			"INNER JOIN user_settings ON users.id = user_settings.id LEFT JOIN ranks ON ranks.id = user_settings.rank LEFT JOIN ships ON ships.id = user_settings.ship"
+			"INNER JOIN user_settings ON users.id = user_settings.id LEFT JOIN ranks ON ranks.id =
+			user_settings.rank LEFT JOIN ships ON ships.id = user_settings.ship"
 		);
 
 		if ( count( $data ) === 0 ) {
@@ -394,5 +395,52 @@ class Database
 	 */
 	public function logOut( $token ) {
 		$this->dbDelete( 'delete_session', 'user_sessions', 'token', $token, 's' );
+	}
+
+	/**
+	 * Get the list of all ships
+	 *
+	 * @return array
+	 */
+	public function getAllShips() {
+		$act = "get_all_ships";
+
+		return $this->dbSelect(
+			$act,
+			'id, name, serial_number, image_url',
+			'ships'
+		);
+	}
+
+	/**
+	 * Get the list of all ranks
+	 *
+	 * @return array
+	 */
+	public function getAllRanks() {
+		$act = "get_all_ranks";
+
+		return $this->dbSelect(
+			$act,
+			'id, name',
+			'ranks'
+		);
+	}
+
+	/**
+	 * Get the list of all crew members
+	 *
+	 * @return array
+	 */
+	public function getAllCrewMembers() {
+		$act = "get_all_crew";
+
+		return $this->dbSelect(
+			$act,
+			'users.id, email, users.name, surname, ranks.id AS rank_id, ranks.name AS rank_name, ships.id AS ships_id, ships.name AS ships_name, disabled',
+			'users',
+			FALSE,
+			"INNER JOIN user_settings ON users.id = user_settings.id LEFT JOIN ranks ON ranks.id = user_settings.rank LEFT JOIN ships ON ships.id = user_settings.ship"
+		);
 	}
 }

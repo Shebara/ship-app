@@ -25,6 +25,27 @@ if ( ! function_exists( 'getallheaders' ) ) {
 }
 
 /**
+ * Verify current user, compare header with session
+ *
+ * @param Auth $auth - instance of Auth() object
+ * @param $token
+ *
+ * @return array|false
+ */
+function verifyUser( $auth, $token ) {
+
+	$user = $auth->whoIs();
+
+	if ( ! $user || empty( $user[ 'token' ] ) || ! $token || $user[ 'token' ] !== $token ) {
+		$auth->logOut();
+
+		return FALSE;
+	} else {
+		return $user;
+	}
+}
+
+/**
  * Get root link based on current URL
  *
  * @param $path
@@ -44,7 +65,7 @@ function getLink( $path ) {
  * Get the ID parameter with all necessary checks
  *
  * @param $data - array to get the ID from
- * @param $auth Auth|false - instance of Auth() (optional)
+ * @param Auth|false $auth - instance of Auth() (optional)
  *
  * @return integer|string
  */
@@ -99,7 +120,28 @@ switch ( $_GET[ 'req' ] ) {
 		$data = 'INDEX PAGE';
 		break;
 	case 'admin':
-		$data = 'ADMIN PAGE';
+		$user = verifyUser( $auth, $token );
+		$post = isset( $_POST[ 'page' ] ) ? $_POST[ 'page' ] : FALSE;
+		$act = 'admin_request';
+
+		if ( empty( $user ) ) {
+			getError( $act, 'You do not have sufficient permissions to view this page.', 409 );
+		}
+
+		switch ( $post ) {
+			default:
+				getError( $act, 'Improper `page` parameter value.' );
+				break;
+			case 'ships':
+				$data = $db->getAllShips();
+				break;
+			case 'ranks':
+				$data = $db->getAllRanks();
+				break;
+			case 'crew':
+				$data = $db->getAllCrewMembers();
+				break;
+		}
 		break;
 	case 'logout':
 		$user = $auth->whoIs();
