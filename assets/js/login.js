@@ -1,5 +1,5 @@
 /**
- * On document ready, request the appropriate data
+ * On document ready, set the appropriate handler
  */
 $( document ).ready( () => {
     formSubmit( 'login', ( response ) => {

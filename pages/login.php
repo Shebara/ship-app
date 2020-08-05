@@ -21,5 +21,4 @@
 		<label class="form-check-label" for="remember">Stay logged in</label>
 	</div>
 	<button type="submit" class="btn btn-primary">Log In</button>
-    <a href="forgot" class="pt-3 d-block">Forgot your password? Reset it here!</a>
 </form>

@@ -51,6 +51,45 @@ switch ( $page ) {
 
 		array_push( $keywords, 'Administration' );
 		break;
+	case 'newShip':
+		$title = 'Add New Ship';
+		$desc = 'Administration dashboard.';
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'newRank':
+		$title = 'Add New Rank';
+		$desc = 'Administration dashboard.';
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'newCrew':
+		$title = 'Add New Crew Member';
+		$desc = 'Administration dashboard.';
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'editShip':
+		$title = 'Edit Ship';
+		$desc = 'Administration dashboard.';
+		$path = "./pages/newShip.php";
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'editRank':
+		$title = 'Edit Rank';
+		$desc = 'Administration dashboard.';
+		$path = "./pages/newRank.php";
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'editCrew':
+		$title = 'Edit Crew Member';
+		$desc = 'Administration dashboard.';
+		$path = "./pages/newCrew.php";
+
+		array_push( $keywords, 'Administration' );
+		break;
 	case 'login':
 		$title = 'Log In';
 		$desc = 'Log in to our portal.';
