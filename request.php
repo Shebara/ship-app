@@ -44,10 +44,11 @@ function getLink( $path ) {
  * Get the ID parameter with all necessary checks
  *
  * @param $data - array to get the ID from
+ * @param $auth Auth|false - instance of Auth() (optional)
  *
  * @return integer|string
  */
-function getId( $data = FALSE ) {
+function getId( $data = FALSE, $auth = FALSE ) {
 	if ( ! is_array( $data ) ) {
 		$data = $_POST;
 	}
@@ -56,7 +57,13 @@ function getId( $data = FALSE ) {
 	$act = 'get_id_' . $_GET[ 'req' ];
 
 	if ( ! $id ) {
-		getError( $act, 'Missing `id` parameter.' );
+		if ( $auth ) {
+			$user = $auth->whoIs();
+			$id = $user[ 'id' ];
+		}
+		if ( ! $id ) {
+			getError( $act, 'Missing `id` parameter.' );
+		}
 	}
 	if ( ! is_numeric( $id ) ) {
 		getError( $act, 'Invalid `id` parameter (must be an integer).' );
@@ -94,6 +101,10 @@ switch ( $_GET[ 'req' ] ) {
 		$data = $db->logIn( $_POST );
 
 		$auth->logIn( $data );
+		break;
+	case 'profile':
+		$id = getId( FALSE, $auth );
+		$data = $db->getProfile( $id );
 		break;
 }
 

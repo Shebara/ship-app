@@ -37,11 +37,20 @@ switch ( $page ) {
 		array_push( $keywords, 'Administration' );
 		break;
 	case 'login':
-		$title = 'Log in';
+		$title = 'Log In';
 		$desc = 'Log in to our portal.';
 
+		array_push( $keywords, 'User' );
 		array_push( $keywords, 'Authentication' );
 		array_push( $keywords, 'Login' );
+		break;
+	case 'profile':
+		$title = 'Your Profile';
+		$desc = 'View your profile.';
+		$path = FALSE;
+
+		array_push( $keywords, 'User' );
+		array_push( $keywords, 'Profile' );
 		break;
 }
 

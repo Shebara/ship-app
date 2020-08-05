@@ -353,11 +353,37 @@ class Database
 
 		return [
 			'id' => intval( $data[ 'id' ] ),
+			'email' => $data[ 'email' ],
 			'name' => $data[ 'name' ],
 			'surname' => $data[ 'surname' ],
 			'admin' => $data[ 'rank' ] == 1,
 			'token' => $token,
 			'remember' => $remember,
 		];
+	}
+
+	/**
+	 * Get the user's profile
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function getProfile( $id ) {
+		$id = intval( $id );
+		$act = "get_user_$id";
+		$data = $this->dbSelect(
+			$act,
+			'email, users.name AS name, surname, ranks.name AS rank, registered_at',
+			'users',
+			"user_settings.disabled = 0 AND users.id = $id",
+			"INNER JOIN user_settings ON users.id = user_settings.id LEFT JOIN ranks ON ranks.id = user_settings.rank"
+		);
+
+		if ( count( $data ) === 0 ) {
+			getError( $act, 'No such user is available.', 404 );
+		}
+
+		return reset( $data );
 	}
 }
