@@ -101,6 +101,14 @@ switch ( $_GET[ 'req' ] ) {
 	case 'admin':
 		$data = 'ADMIN PAGE';
 		break;
+	case 'logout':
+		$user = $auth->whoIs();
+
+		if ( isset( $user ) && isset( $user[ 'token' ] ) ) {
+			$auth->logOut();
+			$db->logOut( $user[ 'token' ] );
+		}
+		break;
 	case 'login':
 		$data = $db->logIn( $_POST );
 

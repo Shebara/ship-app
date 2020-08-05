@@ -59,6 +59,15 @@ switch ( $page ) {
 		array_push( $keywords, 'Authentication' );
 		array_push( $keywords, 'Login' );
 		break;
+	case 'logout':
+		$title = 'Log Out';
+		$desc = 'Log in to our portal.';
+		$path = FALSE;
+
+		array_push( $keywords, 'User' );
+		array_push( $keywords, 'Authentication' );
+		array_push( $keywords, 'Logout' );
+		break;
 	case 'profile':
 		$title = 'Your Profile';
 		$desc = 'View your profile.';

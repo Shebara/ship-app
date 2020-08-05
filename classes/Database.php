@@ -386,4 +386,13 @@ class Database
 
 		return reset( $data );
 	}
+
+	/**
+	 * Remove session from DB
+	 *
+	 * @param $token - token of the session to be removed
+	 */
+	public function logOut( $token ) {
+		$this->dbDelete( 'delete_session', 'user_sessions', 'token', $token, 's' );
+	}
 }
