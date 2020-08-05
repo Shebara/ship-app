@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2020 at 12:40 PM
+-- Generation Time: Aug 05, 2020 at 01:11 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -76,15 +76,16 @@ CREATE TABLE `users` (
   `name` varchar(255) NOT NULL,
   `surname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL DEFAULT ''
+  `password` varchar(255) NOT NULL DEFAULT '',
+  `registered_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`) VALUES
-(1, 'Admin', 'Adminson', 'admin@shipapp.dev', '*4ACFE3202A5FF5CF467898FC58AAB1D615029441');
+INSERT INTO `users` (`id`, `name`, `surname`, `email`, `password`, `registered_at`) VALUES
+(1, 'Admin', 'Adminson', 'admin@shipapp.dev', '*4ACFE3202A5FF5CF467898FC58AAB1D615029441', '2020-08-05 11:10:20');
 
 -- --------------------------------------------------------
 
