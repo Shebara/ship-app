@@ -39,6 +39,9 @@ $( document ).ready( () => {
         const email = data.email ? `<h3>E-Mail: ${data.email}</h3>` : '';
         const date = new Date( data.registered_at.replace( ' ', 'T' ) + 'Z' );
         const registered  = `${date.getDate()}.${date.getMonth() + 1}.${date.getFullYear()}. ${hhMmSs(date)}`;
+        const ship_info = data.ship_name !== null && data.ship_id !== null ? `<h3>
+            Ship: <a href="ship/${data.ship_id}">${data.ship_name}</a>
+        </h3>` : '';
 
         spinner();
         message();
@@ -48,6 +51,7 @@ $( document ).ready( () => {
             ${email}
             <h3>Rank: ${data.rank}</h3>
             <h3>Registration Date: ${registered}</h3>
+            ${ship_info}
         ` );
     } );
 } );
