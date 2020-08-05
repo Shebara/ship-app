@@ -80,7 +80,7 @@ const defaultError = ( error, silent, $element ) => {
  * @param param - request parameter
  * @param data - POST data
  * @param success - success callback
- * @param $element - container element (optional)
+ * @param $element - container element (default: page)
  * @param error - error callback (optional)
  * @param file - is it a file? (default: false)
  * @param silent - should the error be displayed "silently"? (default: false)
@@ -89,7 +89,7 @@ function post( param, data, success, $element, error, file, silent ) {
     const user = getUser();
     file = file || false;
     silent = silent || false;
-    $element = $element || false;
+    $element = $element || $( '#page' );
     const object = {
         url: 'request/' + param,
         data: data,

@@ -24,8 +24,16 @@ if ( ! is_file( $path ) ) {
 		case 'index':
 			$title = 'Main Page';
 			$desc = 'Listing of public user profiles.';
+			$path = FALSE;
 
 			array_push( $keywords, 'Welcome' );
+			break;
+		case 'admin':
+			$title = 'Administration Panel';
+			$desc = 'Administration dashboard.';
+			$path = FALSE;
+
+			array_push( $keywords, 'Administration' );
 			break;
 		case 'login':
 			$title = 'Log in';

@@ -23,10 +23,3 @@
 	<button type="submit" class="btn btn-primary">Log In</button>
     <a href="forgot" class="pt-3 d-block">Forgot your password? Reset it here!</a>
 </form>
-<div id="spinner" class="spinner-border d-none" role="status">
-    <span class="sr-only">Loading...</span>
-</div>
-<div id="message" class="d-none">
-    <h3>Error!</h3>
-    <p>An unknown error has occurred.</p>
-</div>
