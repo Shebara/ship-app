@@ -29,8 +29,22 @@ switch ( $page ) {
 
 		array_push( $keywords, 'Welcome' );
 		break;
-	case 'admin':
-		$title = 'Administration Panel';
+	case 'ships':
+		$title = 'Ship Control';
+		$desc = 'Administration dashboard.';
+		$path = FALSE;
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'ranks':
+		$title = 'Rank Control';
+		$desc = 'Administration dashboard.';
+		$path = FALSE;
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'crew':
+		$title = 'Crew Control';
 		$desc = 'Administration dashboard.';
 		$path = FALSE;
 

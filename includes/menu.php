@@ -12,8 +12,14 @@
                 <li class="nav-item <?php if ( $page === 'index' ) echo 'active' ?>">
                     <a class="nav-link" href="">Home</a>
                 </li>
-                <li id="admin-link" class="nav-item <?php if ( $page === 'admin' ) echo 'active' ?><?php if ( ! $admin ) echo ' d-none' ?>">
-                    <a class="nav-link" id="adminLink" href="admin">Administration</a>
+                <li id="admin-link" class="nav-item dropdown<?php if ( $page === 'admin' ) echo 'active' ?><?php if ( ! $admin ) echo ' d-none' ?>">
+                    <a class="nav-link dropdown-toggle" id="adminLink" href="#" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Administration</a>
+                    <div class="dropdown-menu" aria-labelledby="logoutDropdown">
+                        <a class="dropdown-item" href="ships">Ships</a>
+                        <a class="dropdown-item" href="ranks">Ranks</a>
+                        <a class="dropdown-item" href="crew">Crew Members</a>
+                    </div>
                 </li>
             </ul>
             <div class="my-2 my-lg-0">
@@ -34,7 +40,6 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="logoutDropdown">
                             <a class="dropdown-item" href="profile">Your Profile</a>
-                            <a class="dropdown-item" href="edit">Edit Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="logout">Log Out</a>
                         </div>
