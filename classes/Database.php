@@ -209,6 +209,29 @@ class Database
 	}
 
 	/**
+	 * Save session to DB, generate token and return the modified data array
+	 *
+	 * @param array $id - user ID
+	 * @param boolean $remember - should the user stay logged in?
+	 *
+	 * @return string
+	 */
+	private function setSession( $id, $remember ) {
+		$time = microtime();
+		$random = uniqid();
+		$token = hash( 'sha256', "$time|$id|$random" );
+		$data = [
+			'id' => intval( $id ),
+			'token' => $token,
+			'remember' => $remember ? 1 : 0,
+		];
+
+		$this->dbInsert( 'set_session', 'user_sessions', $data );
+
+		return $token;
+	}
+
+	/**
 	 * Get the login data and check for the requested user
 	 *
 	 * @param $email
@@ -239,12 +262,12 @@ class Database
 			$password
 				? getError( $request, 'Incorrect username or password.', 403, FALSE, TRUE, $softError )
 				: getError( $request, 'User not found.', 403, FALSE, TRUE, $softError );
-		} else {
-			$data = reset( $data );
+		}
 
-			if ( ! empty( $data[ 'disabled' ] ) ) {
-				getError( $request, 'This profile has been deactivated.', 403, FALSE, TRUE, $softError );
-			}
+		$data = reset( $data );
+
+		if ( ! empty( $data[ 'disabled' ] ) ) {
+			getError( $request, 'This profile has been deactivated.', 403, FALSE, TRUE, $softError );
 		}
 
 		unset( $data[ 'disabled' ] );
@@ -326,9 +349,15 @@ class Database
 		$remember = ! empty( $login[ 'remember' ] );
 
 		$data = $this->getLoginData( $email, $password );
+		$token = $this->setSession( $data[ 'id' ], $remember );
 
-		//TODO set session and generate the token
-
-		return $data;
+		return [
+			'id' => intval( $data[ 'id' ] ),
+			'name' => $data[ 'name' ],
+			'surname' => $data[ 'surname' ],
+			'admin' => $data[ 'rank' ] == 1,
+			'token' => $token,
+			'remember' => $remember,
+		];
 	}
 }
