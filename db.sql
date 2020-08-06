@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2020 at 11:35 AM
+-- Generation Time: Aug 06, 2020 at 12:05 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -144,6 +144,12 @@ ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `ranks`
+--
+ALTER TABLE `ranks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ships`
 --
 ALTER TABLE `ships`
@@ -186,6 +192,12 @@ ALTER TABLE `notifications`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `ranks`
+--
+ALTER TABLE `ranks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `ships`
 --
 ALTER TABLE `ships`
@@ -195,7 +207,7 @@ ALTER TABLE `ships`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
