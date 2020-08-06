@@ -126,11 +126,22 @@ switch ( $_GET[ 'req' ] ) {
 	case 'upload':
 		require_once 'uploads/upload.php';
 		break;
+	case 'restore':
+		$user = verifyUser( $auth, $token );
+		$id = getId();
+		$act = 'restore_request';
+
+		if ( empty( $user ) ) {
+			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );
+		}
+
+		$db->deleteItem( 'crew', $id, TRUE );
+		break;
 	case 'delete':
 		$user = verifyUser( $auth, $token );
 		$type = isset( $_POST[ 'type' ] ) ? $_POST[ 'type' ] : FALSE;
-		$id   = getId();
-		$act  = 'delete_request';
+		$id = getId();
+		$act = 'delete_request';
 
 		if ( empty( $user ) ) {
 			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );

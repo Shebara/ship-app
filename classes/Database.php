@@ -650,14 +650,19 @@ class Database
 	 *
 	 * @param $type
 	 * @param $id
+	 * @param bool $restore (default: FALSE) - should the item be restored instead of deleted?
 	 */
-	public function deleteItem( $type, $id ) {
+	public function deleteItem( $type, $id, $restore = FALSE ) {
 		$id = intval( $id );
 
 		if ( $type !== 'crew' ) {
 			$this->dbDelete( "delete_$type", $type . 's', 'id', $id, 'i' );
 		} else {
-			$this->dbUpdate( 'disable_user', 'user_settings', [ 'disabled' => 1 ], "id = $id" );
+			$data = [
+				'disabled' => $restore ? 1 : 0
+			];
+
+			$this->dbUpdate( 'disable_user', 'user_settings', $data, "id = $id" );
 		}
 
 	}
