@@ -165,7 +165,8 @@ switch ( $_GET[ 'req' ] ) {
 			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );
 		}
 
-		//TODO $db->saveCrew( $_POST );
+		$data = $_POST;
+		$db->saveCrew( $_POST );
 		break;
 	case 'admin':
 		$user = verifyUser( $auth, $token );

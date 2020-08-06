@@ -17,6 +17,13 @@
         </div>
 	</div>
     <div class="form-group">
+        <label for="surname">Last Name</label>
+        <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter last name..." required maxlength="250">
+        <div class="invalid-feedback">
+            Please provide a valid last name.
+        </div>
+    </div>
+    <div class="form-group">
         <label for="rank">Rank</label>
         <select name="rank" id="rank" class="custom-select" required <?php if ( isset( $id ) && $id == 1 ) echo 'disabled' ?>>
             <option selected disabled value="">Select this crew member's rank...</option>

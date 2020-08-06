@@ -209,6 +209,21 @@ class Database
 	}
 
 	/**
+	 * Generate a token
+	 *
+	 * @param $id
+	 * @param string $salt (optional)
+	 *
+	 * @return string
+	 */
+	private function generateToken( $id, $salt = '' ) {
+		$time = microtime();
+		$random = uniqid();
+
+		return hash( 'sha256', "$time|$id|$random$salt" );
+	}
+
+	/**
 	 * Save session to DB, generate token and return the modified data array
 	 *
 	 * @param array $id - user ID
@@ -217,9 +232,7 @@ class Database
 	 * @return string
 	 */
 	private function setSession( $id, $remember ) {
-		$time = microtime();
-		$random = uniqid();
-		$token = hash( 'sha256', "$time|$id|$random" );
+		$token = $this->generateToken( $id );
 		$data = [
 			'id' => intval( $id ),
 			'token' => $token,
@@ -548,6 +561,47 @@ class Database
 
 			unset( $data[ 'id' ] );
 			$this->dbUpdate( 'update_rank', 'ranks', $data, "id = $id" );
+		}
+	}
+
+	/**
+	 * Insert or update the crew member
+	 *
+	 * @param $data
+	 *
+	 * @return void|string - return token if just registered
+	 */
+	public function saveCrew( $data ) {
+		if ( empty( $data[ 'id' ] ) ) {
+			$this->dbInsert( 'insert_user', 'users', [
+				'name' => $data[ 'name' ],
+				'surname' => $data[ 'surname' ],
+				'email' => $data[ 'email' ],
+			] );
+
+			$id = $this->dbSelect( 'get_inserted_id', 'id', 'users',
+				'email = ' . $this->conn->real_escape_string( $data[ 'email' ] ) );
+			$id = reset( $id );
+			$id = $id[ 'id' ];
+			$token = $this->generateToken( $id, 'crew' );
+
+			$this->dbInsert( 'insert_user_settings', 'user_settings', [
+				'id' => $id,
+				'rank' => $data[ 'rank' ],
+				'ship' => $data[ 'ship' ],
+			] );
+
+			$this->dbInsert( 'insert_password_request', 'password_requests', [
+				'user_id' => $id,
+				'token' => $token,
+			] );
+
+			return $token;
+		} else {
+			$id = intval( $data[ 'id' ] );
+
+			unset( $data[ 'id' ] );
+			//->dbUpdate( 'update_rank', 'ranks', $data, "id = $id" );
 		}
 	}
 
