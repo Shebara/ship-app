@@ -3,7 +3,7 @@
  */
 $( document ).ready( () => {
     formSubmit( 'rank', () => {
-        message( true, 'Thank you!', 'The rank was successfully added.' );
+        message( true, 'Thank you!', 'The rank was successfully added.', 'ranks' );
         redirect( 'ranks' );
     } );
 } );

@@ -58,7 +58,7 @@ $( document ).ready( () => {
     } );
     $image.change( imageChange );
     formSubmit( 'ship', () => {
-        message( true, 'Thank you!', 'The ship was successfully added.' );
+        message( true, 'Thank you!', 'The ship was successfully added.', 'ships' );
         redirect( 'ships' );
     } );
 } );

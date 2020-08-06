@@ -143,16 +143,22 @@ function setTitle( title ) {
  * @param show - show if true, hide if false (default: false)
  * @param title - message title (show default if not set)
  * @param description - message description (show default if not set)
+ * @param back - link to the listing (optional)
  */
-function message( show, title, description ) {
+function message( show, title, description, back ) {
     show  = show || false;
     title = title || false;
     description = description || false;
+    back = back || false;
 
     const $message = $( '#message' );
     const $page = $( '#page' );
     const $h1 = $( 'h1' );
 
+    if ( back ) {
+        const added = `<p class="mt-3"><a href="${back}">Back to Listing</a></p>`;
+        description = description ? description + added : added;
+    }
     if ( title ) {
         $message.children( 'h3' ).html( title );
     }
