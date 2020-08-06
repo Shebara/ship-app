@@ -679,4 +679,23 @@ class Database
 		}
 
 	}
+
+	/**
+	 * Get all notifications for the current user
+	 *
+	 * @param $id
+	 *
+	 * @return void|array
+	 */
+	public function getUserNotifications( $id ) {
+		$id = intval( $id );
+
+		return $this->dbSelect(
+			'get_user_notifications',
+			'seen, notifications.id, title, content',
+			'user_settings',
+			"user_settings.id = $id AND user_notification.hidden = 0",
+			"INNER JOIN user_notification ON user_notification.user_id = user_settings.id INNER JOIN notifications ON notifications.id = user_notification.notification_id"
+		);
+	}
 }

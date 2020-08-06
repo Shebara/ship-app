@@ -117,7 +117,9 @@ switch ( $_GET[ 'req' ] ) {
 		$data = $auth->whoIs();
 		break;
 	case 'notifications':
-		$data = 'INDEX PAGE';
+		$user = verifyUser( $auth, $token );
+		$id = getId( $user, $auth );
+		$data = $db->getUserNotifications( $id );
 		break;
 	case 'checkToken':
 		$token = empty( $_POST[ 'token' ] ) ? FALSE : $_POST[ 'token' ];
