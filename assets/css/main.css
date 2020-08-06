@@ -48,13 +48,8 @@ body .canvas h1 {
 body .canvas .content {
   padding: 5px 5px 20px;
 }
-body .canvas .content .admin-avatar {
-  max-height: 85px;
-}
-@media (max-width: 600px) {
-  body .canvas .content .admin-avatar {
-    display: none !important;
-  }
+body .canvas .content #image_container {
+  cursor: pointer;
 }
 @media (min-width: 1200px) {
   body .canvas .content {

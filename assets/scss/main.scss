@@ -12,11 +12,8 @@ body {
       padding-top: 16px;
     }
     .content {
-      .admin-avatar {
-        max-height: 85px;
-        @media (max-width: $breakpointSmall) {
-          display: none !important;
-        }
+      #image_container {
+        cursor: pointer;
       }
       padding: 5px 5px 20px;
       @media (min-width: $breakpoint) {
