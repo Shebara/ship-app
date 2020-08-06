@@ -424,7 +424,7 @@ class Database
 		$act = "get_ship_$id";
 		$data = $this->dbSelect(
 			$act,
-			'id, name, serial_number, image_url',
+			'name, serial_number, image_url',
 			'ships',
 			"id = $id"
 		);
@@ -463,7 +463,7 @@ class Database
 		$act = "get_rank_$id";
 		$data = $this->dbSelect(
 			$act,
-			'id, name',
+			'name',
 			'ranks',
 			"id = $id"
 		);
@@ -504,7 +504,7 @@ class Database
 		$act = "get_crew_$id";
 		$data = $this->dbSelect(
 			$act,
-			'users.id, email, name, surname, rank, ship, disabled',
+			'email, name, surname, rank, ship, disabled',
 			'users',
 			"users.id = $id",
 			"INNER JOIN user_settings ON users.id = user_settings.id"

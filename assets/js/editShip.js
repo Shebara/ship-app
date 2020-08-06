@@ -12,7 +12,10 @@ const assignData = ( data ) => {
  */
 $( document ).ready( () => {
     if ( ! window.id ) {
+        spinner();
         message( true, 'Error!', 'Missing ID.' );
+
+        return;
     }
 
     post( 'admin', {
