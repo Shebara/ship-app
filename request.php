@@ -123,6 +123,15 @@ switch ( $_GET[ 'req' ] ) {
 		require_once 'uploads/upload.php';
 		break;
 	case 'ship':
+		$user = verifyUser( $auth, $token );
+		$act = 'ship_request';
+
+		if ( empty( $user ) ) {
+			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );
+		}
+
+		$db->saveShip( $_POST );
+		break;
 	case 'rank':
 	case 'crew':
 		$user = verifyUser( $auth, $token );

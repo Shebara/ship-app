@@ -516,4 +516,21 @@ class Database
 
 		return reset( $data );
 	}
+
+	/**
+	 * Insert or update the ship
+	 *
+	 * @param $data
+	 */
+	public function saveShip( $data ) {
+		if ( empty( $data[ 'id' ] ) ) {
+			unset( $data[ 'id' ] );
+			$this->dbInsert( 'insert_ship', 'ships', $data );
+		} else {
+			$id = intval( $data[ 'id' ] );
+
+			unset( $data[ 'id' ] );
+			$this->dbUpdate( 'update_ship', 'ships', $data, "id = $id" );
+		}
+	}
 }
