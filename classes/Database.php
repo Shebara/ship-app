@@ -550,4 +550,21 @@ class Database
 			$this->dbUpdate( 'update_rank', 'ranks', $data, "id = $id" );
 		}
 	}
+
+	/**
+	 * Delete the chosen item from the database
+	 *
+	 * @param $type
+	 * @param $id
+	 */
+	public function deleteItem( $type, $id ) {
+		$id = intval( $id );
+
+		if ( $type !== 'crew' ) {
+			$this->dbDelete( "delete_$type", $type . 's', 'id', $id, 'i' );
+		} else {
+			$this->dbUpdate( 'disable_user', 'user_settings', [ 'disabled' => 1 ], "id = $id" );
+		}
+
+	}
 }

@@ -122,6 +122,21 @@ switch ( $_GET[ 'req' ] ) {
 	case 'upload':
 		require_once 'uploads/upload.php';
 		break;
+	case 'delete':
+		$user = verifyUser( $auth, $token );
+		$type = isset( $_POST[ 'type' ] ) ? $_POST[ 'type' ] : FALSE;
+		$id   = getId();
+		$act  = 'delete_request';
+
+		if ( empty( $user ) ) {
+			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );
+		}
+		if ( ! $type || ! in_array( $type, array( 'ship', 'rank', 'crew' ) ) ) {
+			getError( $act, 'Improper `type` parameter value.' );
+		} else {
+			$db->deleteItem( $type, $id );
+		}
+		break;
 	case 'ship':
 		$user = verifyUser( $auth, $token );
 		$act = 'ship_request';
@@ -147,7 +162,7 @@ switch ( $_GET[ 'req' ] ) {
 		$act = 'crew_request';
 
 		if ( empty( $user ) ) {
-			getError( $act, 'You do not have sufficient permissions to view this page.', 409 );
+			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );
 		}
 
 		//TODO $db->saveCrew( $_POST );
