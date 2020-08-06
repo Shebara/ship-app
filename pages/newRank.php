@@ -1,5 +1,6 @@
 <form id="rank" class="auth-form needs-validation" novalidate>
     <div id="soft-error" class="d-none pb-2 text-danger"></div>
+    <input type="hidden" id="id" name="id" value="<?php if ( isset( $id ) ) echo $id ?>" />
 	<div class="form-group">
 		<label for="name">Rank Name</label>
 		<input type="text" class="form-control" id="name" name="name" placeholder="Enter rank name..." required maxlength="250">

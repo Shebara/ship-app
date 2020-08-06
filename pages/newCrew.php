@@ -1,5 +1,6 @@
 <form id="crew" class="auth-form needs-validation" novalidate>
     <div id="soft-error" class="d-none pb-2 text-danger"></div>
+    <input type="hidden" id="id" name="id" value="<?php if ( isset( $id ) ) echo $id ?>" />
     <div class="form-group">
         <label for="email">E-Mail</label>
         <input type="email" class="form-control" id="email" name="email" placeholder="Enter your e-mail..."
