@@ -19,6 +19,7 @@ switch ( $page ) {
 		$desc = 'The requested page was not found.';
 		$page = '404';
 		$path = './pages/404.php';
+		$spin = FALSE;
 
 		array_push( $keywords, '404' );
 		array_push( $keywords, 'Not Found' );

@@ -18,7 +18,7 @@ const appendData = ( row ) => {
             <a class="edit-rank" href="editRank/${row.id}" title="Edit">
                 <img src="assets/images/pencil.svg" alt="Edit">
             </a>
-            <a class="delete-crew" href="#" title="Delete" data-id="${row.id}">
+            <a class="delete-rank" href="#" title="Delete" data-id="${row.id}">
                 <img src="assets/images/trash.svg" alt="Delete">
             </a>
         </div>
