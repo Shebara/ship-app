@@ -579,7 +579,7 @@ class Database
 		] );
 
 		$id = $this->dbSelect( 'get_inserted_id', 'id', 'users',
-			'email = ' . $this->conn->real_escape_string( $data[ 'email' ] ) );
+			"email = '{$this->conn->real_escape_string( $data[ 'email' ] )}'" );
 		$id = reset( $id );
 		$id = $id[ 'id' ];
 		$token = $this->generateToken( $id, 'crew' );
@@ -618,6 +618,31 @@ class Database
 	 */
 	public function setPassword( $data ) {
 		//TODO
+	}
+
+	/**
+	 * Get email from reset token
+	 *
+	 * @param $token
+	 *
+	 * @return string
+	 */
+	public function checkToken( $token ) {
+		$token = $this->conn->real_escape_string( $token );
+		$id = $this->dbSelect(
+			'get_set_password_id',
+			'user_id',
+			'password_requests',
+			"token = '$token' AND date >= DATE_SUB(NOW(),INTERVAL 3 HOUR)"
+		);
+
+		if ( count( $id ) === 0 ) {
+			getError( 'get_set_password_id', 'This token is invalid.', 409 );
+		} else {
+			$id = reset( $id );
+		}
+
+		return $id[ 'user_id' ];
 	}
 
 	/**

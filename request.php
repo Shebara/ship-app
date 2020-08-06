@@ -119,6 +119,10 @@ switch ( $_GET[ 'req' ] ) {
 	case 'notifications':
 		$data = 'INDEX PAGE';
 		break;
+	case 'checkToken':
+		$token = empty( $_POST[ 'token' ] ) ? FALSE : $_POST[ 'token' ];
+		$data = $db->checkToken( $token );
+		break;
 	case 'upload':
 		require_once 'uploads/upload.php';
 		break;
@@ -168,7 +172,7 @@ switch ( $_GET[ 'req' ] ) {
 		if ( empty( $_POST[ 'id' ] ) ) {
 			$token = $db->addCrew( $_POST );
 			//TODO send mail
-			$data = $token;
+			$data = getLink( "/setPassword/$token" );
 		} else {
 			$db->saveCrew( $_POST );
 		}
