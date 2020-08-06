@@ -617,7 +617,13 @@ class Database
 	 * @param $data
 	 */
 	public function setPassword( $data ) {
-		//TODO
+		if ( $data[ 'password' ] !== $data[ 'password2' ] ) {
+			getError( 'set_password', 'The passwords are not equal!', 409 );
+		}
+
+		$id = intval( $data[ 'id' ] );
+
+		$this->dbUpdate( 'set_password', 'users', [ 'password' => $data[ 'password' ] ], "id = $id" );
 	}
 
 	/**

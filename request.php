@@ -126,6 +126,13 @@ switch ( $_GET[ 'req' ] ) {
 	case 'upload':
 		require_once 'uploads/upload.php';
 		break;
+	case 'setPassword':
+		$id = getId();
+
+		if ( $id ) {
+			$db->setPassword( $_POST );
+		}
+		break;
 	case 'restore':
 		$user = verifyUser( $auth, $token );
 		$id = getId();
