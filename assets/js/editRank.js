@@ -4,7 +4,7 @@
  * @param data
  */
 const assignData = ( data ) => {
-    console.log( data );
+    $( '#name' ).val( data.name );
 };
 
 /**
