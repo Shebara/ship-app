@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2020 at 12:05 PM
+-- Generation Time: Aug 06, 2020 at 02:43 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -32,6 +32,18 @@ CREATE TABLE `notifications` (
   `title` varchar(255) NOT NULL,
   `content` varchar(5000) NOT NULL,
   `ranks` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_requests`
+--
+
+CREATE TABLE `password_requests` (
+  `token` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -142,6 +154,12 @@ INSERT INTO `user_settings` (`id`, `rank`, `disabled`, `ship`) VALUES
 --
 ALTER TABLE `notifications`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_requests`
+--
+ALTER TABLE `password_requests`
+  ADD PRIMARY KEY (`token`);
 
 --
 -- Indexes for table `ranks`
