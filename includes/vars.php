@@ -4,6 +4,7 @@ $site = 'Test Portal';
 $title = FALSE;
 $index = TRUE;
 $desc = FALSE;
+$spin = TRUE;
 $id = empty( $_GET[ 'id' ] ) ? FALSE : $_GET[ 'id' ];
 $keywords = [ 'ship-app', 'ships', 'test', 'portal' ];
 
@@ -54,18 +55,21 @@ switch ( $page ) {
 	case 'newShip':
 		$title = 'Add New Ship';
 		$desc = 'Administration dashboard.';
+		$spin = FALSE;
 
 		array_push( $keywords, 'Administration' );
 		break;
 	case 'newRank':
 		$title = 'Add New Rank';
 		$desc = 'Administration dashboard.';
+		$spin = FALSE;
 
 		array_push( $keywords, 'Administration' );
 		break;
 	case 'newCrew':
 		$title = 'Add New Crew Member';
 		$desc = 'Administration dashboard.';
+		$spin = FALSE;
 
 		array_push( $keywords, 'Administration' );
 		break;
@@ -93,6 +97,7 @@ switch ( $page ) {
 	case 'login':
 		$title = 'Log In';
 		$desc = 'Log in to our portal.';
+		$spin = FALSE;
 
 		array_push( $keywords, 'User' );
 		array_push( $keywords, 'Authentication' );
