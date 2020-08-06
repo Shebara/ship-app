@@ -133,6 +133,15 @@ switch ( $_GET[ 'req' ] ) {
 		$db->saveShip( $_POST );
 		break;
 	case 'rank':
+		$user = verifyUser( $auth, $token );
+		$act = 'rank_request';
+
+		if ( empty( $user ) ) {
+			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );
+		}
+
+		$db->saveRank( $_POST );
+		break;
 	case 'crew':
 		$user = verifyUser( $auth, $token );
 		$act = 'crew_request';
@@ -141,7 +150,7 @@ switch ( $_GET[ 'req' ] ) {
 			getError( $act, 'You do not have sufficient permissions to view this page.', 409 );
 		}
 
-		$data = $_POST;
+		//TODO $db->saveCrew( $_POST );
 		break;
 	case 'admin':
 		$user = verifyUser( $auth, $token );

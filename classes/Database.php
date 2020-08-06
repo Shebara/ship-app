@@ -533,4 +533,21 @@ class Database
 			$this->dbUpdate( 'update_ship', 'ships', $data, "id = $id" );
 		}
 	}
+
+	/**
+	 * Insert or update the rank
+	 *
+	 * @param $data
+	 */
+	public function saveRank( $data ) {
+		if ( empty( $data[ 'id' ] ) ) {
+			unset( $data[ 'id' ] );
+			$this->dbInsert( 'insert_rank', 'ranks', $data );
+		} else {
+			$id = intval( $data[ 'id' ] );
+
+			unset( $data[ 'id' ] );
+			$this->dbUpdate( 'update_rank', 'ranks', $data, "id = $id" );
+		}
+	}
 }
