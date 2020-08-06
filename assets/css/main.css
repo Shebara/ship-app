@@ -51,6 +51,13 @@ body .canvas .content {
 body .canvas .content #image_container {
   cursor: pointer;
 }
+body .canvas .content .image-wrap {
+  position: relative;
+}
+body .canvas .content .image-wrap img {
+  max-width: 100%;
+  max-height: 100%;
+}
 @media (min-width: 1200px) {
   body .canvas .content {
     padding: 20px 40px 40px;

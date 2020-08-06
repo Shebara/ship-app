@@ -6,9 +6,28 @@
  * @returns {string}
  */
 const appendData = ( row ) => {
-    console.log( row );
+    const classes = 'text-truncate border-bottom border-right row' + row.id;
+    const image = row.image_url ? row.image_url : 'assets/images/placeholder.png';
 
-    return '';
+    return `
+        <div class="col-1 p-2 border-left ${classes}">${row.id}</div>
+        <div class="col-4 p-2 ${classes}">${row.name}</div>
+        <div class="col-2 p-2 ${classes}">${row.serial_number}</div>
+        <div class="col-3 p-2 ${classes}">
+            <div class="image-wrap"><img src="${image}" alt="${row.name}" /></div>
+        </div>
+        <div class="col-2 p-2 ${classes}">
+            <a class="visit-ship" href="ship/${row.id}" title="Ship Page">
+                <img src="assets/images/globe.svg" alt="Visit">
+            </a>
+            <a class="edit-ship" href="editShip/${row.id}" title="Edit">
+                <img src="assets/images/pencil.svg" alt="Edit">
+            </a>
+            <a class="delete-ship" href="#" title="Delete" data-id="${row.id}">
+                <img src="assets/images/trash.svg" alt="Delete">
+            </a>
+        </div>
+    `;
 };
 
 /**
