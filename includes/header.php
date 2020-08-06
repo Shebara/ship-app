@@ -16,31 +16,14 @@
     ?>
     <script>
         /**
-         * Validation for bootstrap
+         * Password comparison for bootstrap
          *
          * @param field
+         * @param field2 - second field
          * @param text - invalid text
-         * @param type - validation type
-         * @param field2 - second field (optional)
          */
-        function customValidation( field, text, type, field2 ) {
-            field2 = field2 || false;
-
-            switch ( type ) {
-                case 'compare':
-                    type = field.value !== field2.value;
-                    break;
-                case 'dependency':
-                    type = ! field2.value && field.value;
-
-                    const swap = field2;
-
-                    field2 = field;
-                    field = swap;
-                    break;
-            }
-
-            field.setCustomValidity( type ? text : "" );
+        function passwordCompare( field, field2, text ) {
+            field.setCustomValidity( field.value !== field2.value ? text : "" );
         }
     </script>
     <meta name="description" content="<?php echo $metas[ 'desc' ] ?>">

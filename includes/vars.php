@@ -120,6 +120,14 @@ switch ( $page ) {
 		array_push( $keywords, 'User' );
 		array_push( $keywords, 'Profile' );
 		break;
+	case 'setPassword':
+		$title = 'Set Password';
+		$desc = 'Set a new password for your profile.';
+
+		array_push( $keywords, 'User' );
+		array_push( $keywords, 'Authentication' );
+		array_push( $keywords, 'Register' );
+		break;
 }
 
 $metas = [

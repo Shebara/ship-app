@@ -1,6 +1,7 @@
 RewriteEngine On
 RewriteRule ^request/([A-Za-z0-9-]+)/?$ request.php?req=$1
 RewriteRule ^([A-Za-z0-9-]+)/([0-9]+)/?$ index.php?page=$1&id=$2
+RewriteRule ^setPassword/([A-Za-z0-9-]+)/?$ index.php?page=setPassword&token=$1
 RewriteRule ^setup/?$ db_setup.php
 RewriteRule ^setup/([0-9]+)/?$ db_setup.php?param=$1
 RewriteRule ^([A-Za-z0-9-]+)/?$ index.php?page=$1
