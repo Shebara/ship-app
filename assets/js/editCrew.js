@@ -4,7 +4,14 @@
  * @param data
  */
 const assignData = ( data ) => {
-    console.log( data );
+    $( '#name' ).val( data.name );
+    $( '#surname' ).val( data.surname );
+    $( '#email' ).val( data.email );
+    $( '#rank' ).val( data.rank );
+
+    if ( data.ship !== null ) {
+        $( '#ship' ).val( data.ship );
+    }
 };
 
 /**

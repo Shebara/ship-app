@@ -18,7 +18,7 @@
 	</div>
     <div class="form-group">
         <label for="rank">Rank</label>
-        <select name="rank" id="rank" class="custom-select" required>
+        <select name="rank" id="rank" class="custom-select" required <?php if ( isset( $id ) && $id == 1 ) echo 'disabled' ?>>
             <option selected disabled value="">Select this crew member's rank...</option>
         </select>
         <div class="invalid-feedback">

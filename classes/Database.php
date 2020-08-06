@@ -504,7 +504,7 @@ class Database
 		$act = "get_crew_$id";
 		$data = $this->dbSelect(
 			$act,
-			'email, name, surname, rank, ship, disabled',
+			'email, name, surname, rank, ship',
 			'users',
 			"users.id = $id",
 			"INNER JOIN user_settings ON users.id = user_settings.id"
