@@ -25,9 +25,5 @@ $( document ).ready( () => {
         assignData( response.data );
         spinner();
         message();
-        formSubmit( 'rank', () => {
-            message( true, 'Thank you!', 'The rank was successfully added.' );
-            redirect( 'ranks' );
-        } );
     } );
 } );

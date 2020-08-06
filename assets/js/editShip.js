@@ -25,9 +25,5 @@ $( document ).ready( () => {
         assignData( response.data );
         spinner();
         message();
-        formSubmit( 'ship', () => {
-            message( true, 'Thank you!', 'The ship was successfully added.' );
-            redirect( 'ships' );
-        } );
     } );
 } );
