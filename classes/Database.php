@@ -565,44 +565,59 @@ class Database
 	}
 
 	/**
-	 * Insert or update the crew member
+	 * Insert the new crew member
+	 *
+	 * @param $data
+	 *
+	 * @return string
+	 */
+	public function addCrew( $data ) {
+		$this->dbInsert( 'insert_user', 'users', [
+			'name' => $data[ 'name' ],
+			'surname' => $data[ 'surname' ],
+			'email' => $data[ 'email' ],
+		] );
+
+		$id = $this->dbSelect( 'get_inserted_id', 'id', 'users',
+			'email = ' . $this->conn->real_escape_string( $data[ 'email' ] ) );
+		$id = reset( $id );
+		$id = $id[ 'id' ];
+		$token = $this->generateToken( $id, 'crew' );
+
+		$this->dbInsert( 'insert_user_settings', 'user_settings', [
+			'id' => $id,
+			'rank' => $data[ 'rank' ],
+			'ship' => $data[ 'ship' ],
+		] );
+		$this->dbInsert( 'insert_password_request', 'password_requests', [
+			'user_id' => $id,
+			'token' => $token,
+		] );
+
+		return $token;
+	}
+
+	/**
+	 * Update the crew member
 	 *
 	 * @param $data
 	 *
 	 * @return void|string - return token if just registered
 	 */
 	public function saveCrew( $data ) {
-		if ( empty( $data[ 'id' ] ) ) {
-			$this->dbInsert( 'insert_user', 'users', [
-				'name' => $data[ 'name' ],
-				'surname' => $data[ 'surname' ],
-				'email' => $data[ 'email' ],
-			] );
+		$id = intval( $data[ 'id' ] );
 
-			$id = $this->dbSelect( 'get_inserted_id', 'id', 'users',
-				'email = ' . $this->conn->real_escape_string( $data[ 'email' ] ) );
-			$id = reset( $id );
-			$id = $id[ 'id' ];
-			$token = $this->generateToken( $id, 'crew' );
+		unset( $data[ 'id' ] );
+		//->dbUpdate( 'update_rank', 'ranks', $data, "id = $id" );
+	}
 
-			$this->dbInsert( 'insert_user_settings', 'user_settings', [
-				'id' => $id,
-				'rank' => $data[ 'rank' ],
-				'ship' => $data[ 'ship' ],
-			] );
-
-			$this->dbInsert( 'insert_password_request', 'password_requests', [
-				'user_id' => $id,
-				'token' => $token,
-			] );
-
-			return $token;
-		} else {
-			$id = intval( $data[ 'id' ] );
-
-			unset( $data[ 'id' ] );
-			//->dbUpdate( 'update_rank', 'ranks', $data, "id = $id" );
-		}
+	/**
+	 * Set or reset the user's password
+	 *
+	 * @param $data
+	 */
+	public function setPassword( $data ) {
+		//TODO
 	}
 
 	/**

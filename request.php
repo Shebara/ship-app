@@ -165,8 +165,14 @@ switch ( $_GET[ 'req' ] ) {
 			getError( $act, 'You do not have sufficient permissions to send this request.', 409 );
 		}
 
-		$data = $_POST;
-		$db->saveCrew( $_POST );
+		if ( empty( $_POST[ 'id' ] ) ) {
+			$token = $db->addCrew( $_POST );
+			//TODO send mail
+			$data = $token;
+		} else {
+			$db->saveCrew( $_POST );
+		}
+
 		break;
 	case 'admin':
 		$user = verifyUser( $auth, $token );
