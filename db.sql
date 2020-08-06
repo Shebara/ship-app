@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 05, 2020 at 01:11 PM
+-- Generation Time: Aug 06, 2020 at 11:35 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.31
 
@@ -61,8 +61,8 @@ INSERT INTO `ranks` (`id`, `name`) VALUES
 CREATE TABLE `ships` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `serial_number` varchar(255) NOT NULL,
-  `image_url` varchar(255) NOT NULL
+  `serial_number` char(8) NOT NULL,
+  `image_url` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
