@@ -33,34 +33,30 @@ function getError( $act, $text = 'Bad Request', $code = 400, $db = FALSE, $die =
  * Send an email
  *
  * @param $data
- * @param $subject
- * @param $message (optional)
+ * @param $link
  *
  * @return boolean
  */
-function sendMail( $data, $subject, $message = FALSE ) {
+function sendMail( $data, $link ) {
 	error_reporting( 0 );
 
 	$to = is_string( $data ) ? $data : $data[ 'email' ];
-
-	if ( ! $message ) {
-		$username = is_array( $data ) && isset( $data[ 'username' ] ) ? ', ' . $data[ 'username' ] . ', ' : ' ';
-		$message = "Thank you$username for registering to our portal!";
-	}
-
+	$username = is_array( $data ) && isset( $data[ 'name' ] ) ? $data[ 'name' ] : ' ';
 	$headers = "MIME-Version: 1.0\r\n" . 'From: <webmaster@seo1click.com>' . "\r\nContent-type:text/html;charset=UTF-8\r\n";
 	$message = "
 		<html>
 			<head>
-				<title>$subject</title>
+				<title>Welcome, $username!</title>
 			</head>
 		<body>
-		<p>$message</p>
+		<p>Hello, $username. You have successfully registered to our portal.</p>
+		<p>Please, follow this link, in order to set your password and complete your registration:</p>
+		<p><a href='$link'>$link</a></p>
 		</body>
 		</html>
 	";
 
-	$data[ 'mail' ] = mail( $to, $subject, $message, $headers );
+	$data[ 'mail' ] = mail( $to, 'Registration for ' . $username, $message, $headers );
 
 	return $data;
 }

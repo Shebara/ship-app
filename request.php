@@ -189,8 +189,9 @@ switch ( $_GET[ 'req' ] ) {
 
 		if ( empty( $_POST[ 'id' ] ) ) {
 			$token = $db->addCrew( $_POST );
-			//TODO send mail
-			$data = getLink( "/setPassword/$token" );
+			$link = getLink( "/setPassword/$token" );
+
+			sendMail( $_POST, $link );
 		} else {
 			$db->saveCrew( $_POST );
 		}
