@@ -119,6 +119,9 @@ switch ( $_GET[ 'req' ] ) {
 	case 'notifications':
 		$data = 'INDEX PAGE';
 		break;
+	case 'upload':
+		require_once 'uploads/upload.php';
+		break;
 	case 'ship':
 	case 'rank':
 	case 'crew':
