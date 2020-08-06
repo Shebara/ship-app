@@ -122,11 +122,19 @@ switch ( $_GET[ 'req' ] ) {
 	case 'ship':
 	case 'rank':
 	case 'crew':
+		$user = verifyUser( $auth, $token );
+		$act = 'crew_request';
+
+		if ( empty( $user ) ) {
+			getError( $act, 'You do not have sufficient permissions to view this page.', 409 );
+		}
+
 		$data = $_POST;
 		break;
 	case 'admin':
 		$user = verifyUser( $auth, $token );
 		$post = isset( $_POST[ 'page' ] ) ? $_POST[ 'page' ] : FALSE;
+		$id   = isset( $_POST[ 'id' ] ) ? $_POST[ 'id' ] : FALSE;
 		$act = 'admin_request';
 
 		if ( empty( $user ) ) {
@@ -138,13 +146,13 @@ switch ( $_GET[ 'req' ] ) {
 				getError( $act, 'Improper `page` parameter value.' );
 				break;
 			case 'ships':
-				$data = $db->getAllShips();
+				$data = $id ? $db->getShip( $id ) : $db->getAllShips();
 				break;
 			case 'ranks':
-				$data = $db->getAllRanks();
+				$data = $id ? $db->getRank( $id ) : $db->getAllRanks();
 				break;
 			case 'crew':
-				$data = $db->getAllCrewMembers();
+				$data = $id ? $db->getCrewMember( $id ) : $db->getAllCrewMembers();
 				break;
 		}
 		break;

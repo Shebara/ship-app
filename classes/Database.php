@@ -413,6 +413,30 @@ class Database
 	}
 
 	/**
+	 * Get ship data by ID
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function getShip( $id ) {
+		$id = intval( $id );
+		$act = "get_ship_$id";
+		$data = $this->dbSelect(
+			$act,
+			'id, name, serial_number, image_url',
+			'ships',
+			"id = $id"
+		);
+
+		if ( count( $data ) === 0 ) {
+			getError( $act, 'No such ship is available.', 404 );
+		}
+
+		return reset( $data );
+	}
+
+	/**
 	 * Get the list of all ranks
 	 *
 	 * @return array
@@ -425,6 +449,30 @@ class Database
 			'id, name',
 			'ranks'
 		);
+	}
+
+	/**
+	 * Get rank data by ID
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function getRank( $id ) {
+		$id = intval( $id );
+		$act = "get_rank_$id";
+		$data = $this->dbSelect(
+			$act,
+			'id, name',
+			'ranks',
+			"id = $id"
+		);
+
+		if ( count( $data ) === 0 ) {
+			getError( $act, 'No such rank is available.', 404 );
+		}
+
+		return reset( $data );
 	}
 
 	/**
@@ -442,5 +490,30 @@ class Database
 			FALSE,
 			"INNER JOIN user_settings ON users.id = user_settings.id LEFT JOIN ranks ON ranks.id = user_settings.rank LEFT JOIN ships ON ships.id = user_settings.ship"
 		);
+	}
+
+	/**
+	 * Get crew member data by ID
+	 *
+	 * @param $id
+	 *
+	 * @return array
+	 */
+	public function getCrewMember( $id ) {
+		$id = intval( $id );
+		$act = "get_crew_$id";
+		$data = $this->dbSelect(
+			$act,
+			'users.id, email, name, surname, rank, ship, disabled',
+			'users',
+			"users.id = $id",
+			"INNER JOIN user_settings ON users.id = user_settings.id"
+		);
+
+		if ( count( $data ) === 0 ) {
+			getError( $act, 'No such rank is available.', 404 );
+		}
+
+		return reset( $data );
 	}
 }
