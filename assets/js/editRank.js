@@ -1,4 +1,13 @@
 /**
+ * Add data to form
+ *
+ * @param data
+ */
+const assignData = ( data ) => {
+    console.log( data );
+};
+
+/**
  * On document ready, get the data and set the appropriate handler
  */
 $( document ).ready( () => {
@@ -10,10 +19,9 @@ $( document ).ready( () => {
         page: 'ranks',
         id: window.id
     }, ( response ) => {
-        const data = response.data;
-
-        console.log( data );
-
+        assignData( response.data );
+        spinner();
+        message();
         formSubmit( 'rank', () => {
             message( true, 'Thank you!', 'The rank was successfully added.' );
             redirect( 'ranks' );
