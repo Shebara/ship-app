@@ -4,7 +4,9 @@
  * @param data
  */
 const assignData = ( data ) => {
-    console.log( data );
+    assignImage( data.image_url );
+    $( '#name' ).val( data.name );
+    $( '#serial_number' ).val( data.serial_number );
 };
 
 /**

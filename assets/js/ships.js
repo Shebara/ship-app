@@ -58,7 +58,5 @@ $( document ).ready( () => {
         message();
         spinner();
         $( '#page' ).html( html );
-
-        console.log( response );
     } );
 } );

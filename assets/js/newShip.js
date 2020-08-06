@@ -3,7 +3,7 @@
  *
  * @param value
  */
-const assignImage = ( value ) => {
+function assignImage( value ) {
     const $output = $( '#output_image' );
 
     if ( value !== '' ) {
@@ -13,7 +13,7 @@ const assignImage = ( value ) => {
     }
 
     $( '#image_url' ).val( value );
-};
+}
 
 /**
  * Upload and display image if it is selected
