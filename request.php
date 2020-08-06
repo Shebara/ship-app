@@ -181,6 +181,12 @@ switch ( $_GET[ 'req' ] ) {
 			default:
 				getError( $act, 'Improper `page` parameter value.' );
 				break;
+			case 'dropdowns':
+				$data = [
+					'ranks' => $db->getAllRanks(),
+					'ships' => $db->getAllShips(),
+				];
+				break;
 			case 'ships':
 				$data = $id ? $db->getShip( $id ) : $db->getAllShips();
 				break;

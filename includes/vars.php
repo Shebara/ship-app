@@ -70,7 +70,6 @@ switch ( $page ) {
 	case 'newCrew':
 		$title = 'Add New Crew Member';
 		$desc = 'Administration dashboard.';
-		$spin = FALSE;
 
 		array_push( $keywords, 'Administration' );
 		break;

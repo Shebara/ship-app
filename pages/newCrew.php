@@ -17,11 +17,20 @@
         </div>
 	</div>
     <div class="form-group">
-        <label for="surname">Last Name</label>
-        <input type="text" class="form-control" id="surname" name="surname" placeholder="Enter last name..." required maxlength="250">
+        <label for="rank">Rank</label>
+        <select name="rank" id="rank" class="custom-select" required>
+            <option selected disabled value="">Select this crew member's rank...</option>
+        </select>
         <div class="invalid-feedback">
-            Please provide a valid last name.
+            Please choose a rank.
         </div>
+    </div>
+    <div class="form-group">
+        <label for="ship">Ship</label>
+        <select name="ship" id="ship" class="custom-select">
+            <option disabled selected>Select this crew member's ship...</option>
+            <option value="">None</option>
+        </select>
     </div>
 	<button type="submit" class="btn btn-primary">Save</button>
 </form>
