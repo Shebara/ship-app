@@ -659,7 +659,7 @@ class Database
 			$this->dbDelete( "delete_$type", $type . 's', 'id', $id, 'i' );
 		} else {
 			$data = [
-				'disabled' => $restore ? 1 : 0
+				'disabled' => $restore ? 0 : 1
 			];
 
 			$this->dbUpdate( 'disable_user', 'user_settings', $data, "id = $id" );
