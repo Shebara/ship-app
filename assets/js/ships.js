@@ -1,4 +1,23 @@
 /**
+ * Add ship delete handlers
+ */
+const addHandlers = () => {
+    $( '.delete-ship' ).click( ( e ) => {
+        e.preventDefault();
+
+        const $tgt = e.target.tagName === 'A' ? $( e.target ) : $( e.target ).parent();
+        const id = $tgt.data( 'id' );
+
+        post( 'delete', {
+            type: 'ship',
+            id: id
+        }, () => {
+            $( '.row' + id ).remove();
+        } );
+    } );
+}
+
+/**
  * Return the HTML-formatted string for the data row
  *
  * @param row - data object
@@ -58,5 +77,6 @@ $( document ).ready( () => {
         message();
         spinner();
         $( '#page' ).html( html );
+        addHandlers();
     } );
 } );
