@@ -195,7 +195,6 @@ switch ( $_GET[ 'req' ] ) {
 		} else {
 			$db->saveCrew( $_POST );
 		}
-
 		break;
 	case 'admin':
 		$user = verifyUser( $auth, $token );

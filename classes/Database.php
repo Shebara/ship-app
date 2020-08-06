@@ -608,7 +608,14 @@ class Database
 		$id = intval( $data[ 'id' ] );
 
 		unset( $data[ 'id' ] );
-		//->dbUpdate( 'update_rank', 'ranks', $data, "id = $id" );
+		$this->dbUpdate( 'update_user', 'users', [
+			'name' => $data[ 'name' ],
+			'surname' => $data[ 'surname' ],
+		], "id = $id" );
+		$this->dbUpdate( 'update_user_settings', 'user_settings', [
+			'rank' => $data[ 'rank' ],
+			'ship' => $data[ 'ship' ],
+		], "id = $id" );
 	}
 
 	/**
