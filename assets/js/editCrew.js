@@ -15,7 +15,7 @@ const assignData = ( data ) => {
 };
 
 /**
- * On document ready, get the data and set the appropriate handler
+ * On document ready, get the data
  */
 $( document ).ready( () => {
     if ( ! window.id ) {

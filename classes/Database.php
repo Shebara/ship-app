@@ -429,10 +429,11 @@ class Database
 	 * Get ship data by ID
 	 *
 	 * @param $id
+	 * @param $crew - if true, also adds a crew list to the object (default: false)
 	 *
 	 * @return array
 	 */
-	public function getShip( $id ) {
+	public function getShip( $id, $crew = FALSE ) {
 		$id = intval( $id );
 		$act = "get_ship_$id";
 		$data = $this->dbSelect(
@@ -446,7 +447,13 @@ class Database
 			getError( $act, 'No such ship is available.', 404 );
 		}
 
-		return reset( $data );
+		$data = reset( $data );
+
+		if ( $crew ) {
+			$data[ 'crew' ] = $this->getAllCrewMembers( $id );
+		}
+
+		return $data;
 	}
 
 	/**
@@ -468,10 +475,11 @@ class Database
 	 * Get rank data by ID
 	 *
 	 * @param $id
+	 * @param $crew - if true, also adds a crew list to the object (default: false)
 	 *
 	 * @return array
 	 */
-	public function getRank( $id ) {
+	public function getRank( $id, $crew = FALSE ) {
 		$id = intval( $id );
 		$act = "get_rank_$id";
 		$data = $this->dbSelect(
@@ -485,22 +493,39 @@ class Database
 			getError( $act, 'No such rank is available.', 404 );
 		}
 
-		return reset( $data );
+		$data = reset( $data );
+
+		if ( $crew ) {
+			$data[ 'crew' ] = $this->getAllCrewMembers( FALSE, $id );
+		}
+
+		return $data;
 	}
 
 	/**
 	 * Get the list of all crew members
 	 *
+	 * @param bool|int $ship - ID of the ship the crew members belong to (optional)
+	 * @param bool|int $rank - ID of the rank the crew members have (optional)
+	 *
 	 * @return array
 	 */
-	public function getAllCrewMembers() {
+	public function getAllCrewMembers( $ship = FALSE, $rank = FALSE ) {
 		$act = "get_all_crew";
+		$where = FALSE;
+
+		if ( $ship ) {
+			$where = 'user_settings.ship = ' . intval( $ship );
+		}
+		if ( $rank ) {
+			$where = 'user_settings.rank = ' . intval( $rank );
+		}
 
 		return $this->dbSelect(
 			$act,
 			'users.id, email, users.name, surname, ranks.id AS rank_id, ranks.name AS rank_name, ships.id AS ships_id, ships.name AS ships_name, disabled',
 			'users',
-			FALSE,
+			$where,
 			"INNER JOIN user_settings ON users.id = user_settings.id LEFT JOIN ranks ON ranks.id = user_settings.rank LEFT JOIN ships ON ships.id = user_settings.ship"
 		);
 	}

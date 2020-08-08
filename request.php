@@ -219,10 +219,11 @@ switch ( $_GET[ 'req' ] ) {
 				];
 				break;
 			case 'ships':
-				$data = $id ? $db->getShip( $id ) : $db->getAllShips();
+				$crew = ! empty( $_POST[ 'crew' ] );
+				$data = $id ? $db->getShip( $id, $crew ) : $db->getAllShips();
 				break;
 			case 'ranks':
-				$data = $id ? $db->getRank( $id ) : $db->getAllRanks();
+				$data = $id ? $db->getRank( $id, $crew ) : $db->getAllRanks();
 				break;
 			case 'crew':
 				$data = $id ? $db->getCrewMember( $id ) : $db->getAllCrewMembers();

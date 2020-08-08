@@ -94,6 +94,20 @@ switch ( $page ) {
 
 		array_push( $keywords, 'Administration' );
 		break;
+	case 'rank':
+		$title = 'Rank';
+		$desc = 'Administration dashboard.';
+		$path = FALSE;
+
+		array_push( $keywords, 'Administration' );
+		break;
+	case 'ship':
+		$title = 'Ship';
+		$desc = 'Administration dashboard.';
+		$path = FALSE;
+
+		array_push( $keywords, 'Administration' );
+		break;
 	case 'login':
 		$title = 'Log In';
 		$desc = 'Log in to our portal.';

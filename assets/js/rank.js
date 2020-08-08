@@ -1,4 +1,15 @@
 /**
+ * Show the retrieved data on the page
+ *
+ * @param data
+ */
+const assignData = ( data ) => {
+    console.log( data );
+
+    listCrew( data.crew );
+}
+
+/**
  * On document ready, get the data
  */
 $( document ).ready( () => {
@@ -11,9 +22,11 @@ $( document ).ready( () => {
 
     post( 'admin', {
         page: 'ranks',
-        id: window.id
+        id: window.id,
+        crew: true
     }, ( response ) => {
-        $( '#name' ).val( data.name );
+        assignData( response.data );
+
         spinner();
         message();
     } );
