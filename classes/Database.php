@@ -497,6 +497,7 @@ class Database
 
 		if ( $crew ) {
 			$data[ 'crew' ] = $this->getAllCrewMembers( FALSE, $id );
+			$data[ 'notifications' ] = $this->getRankNotifications( $id );
 		}
 
 		return $data;
@@ -708,7 +709,7 @@ class Database
 	/**
 	 * Get all notifications for the current user
 	 *
-	 * @param $id
+	 * @param $id - user ID
 	 *
 	 * @return void|array
 	 */
@@ -721,6 +722,24 @@ class Database
 			'user_settings',
 			"user_settings.id = $id AND user_notification.hidden = 0",
 			"INNER JOIN user_notification ON user_notification.user_id = user_settings.id INNER JOIN notifications ON notifications.id = user_notification.notification_id"
+		);
+	}
+
+	/**
+	 * Get all notifications for the current rank
+	 *
+	 * @param $id - rank ID
+	 *
+	 * @return void|array
+	 */
+	public function getRankNotifications( $id ) {
+		$id = intval( $id );
+
+		return $this->dbSelect(
+			'get_user_notifications',
+			'id, title, content',
+			'notifications',
+			"ranks LIKE '%$id,%'"
 		);
 	}
 }
