@@ -15,7 +15,7 @@ const assignData = ( data ) => {
         <hr/>
         <h4>Notifications for this Rank</h4>
     ` : '' );
-    listNotifications( data.notifications );
+    listNotifications( data.notifications, window.id );
 }
 
 /**

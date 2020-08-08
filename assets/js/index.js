@@ -9,6 +9,9 @@ $( document ).ready( () => {
     }
 
     post( 'notifications', {}, ( response ) => {
-        console.log( response );
+        listNotifications( response.data );
+
+        spinner();
+        message();
     } );
 } );

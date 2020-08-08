@@ -182,7 +182,9 @@ function listNotifications( data, rank ) {
         `;
     } );
 
-    html += '</div><div class="pt-5"><a class="btn btn-primary text-white" href="addNotification">Add Notification</a></div>';
+    html += `</div><div class="pt-5">
+        <a class="btn btn-primary text-white" href="addNotification${rank ? '/' + rank : ''}">Add Notification</a>
+    </div>`;
     ( '#page' ).append( html );
     addDeleteHandlers( true );
 }
