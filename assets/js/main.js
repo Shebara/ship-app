@@ -75,13 +75,30 @@ const defaultError = ( error, silent, $element ) => {
 
 /**
  * Add crew delete/restore handlers
+ *
+ * @param notifications - is this for notifications? (default: false)
  */
-const addDeleteHandlers = () => {
+const addDeleteHandlers = ( notifications ) => {
+    notifications = notifications || false;
+    const $tgt = e.target.tagName === 'A' ? $( e.target ) : $( e.target ).parent();
+    const id = $tgt.data( 'id' );
+
+    if ( notifications ) {
+        $( '.delete-notification' ).click( ( e ) => {
+            e.preventDefault();
+
+            post( 'delete', {
+                type: 'notification',
+                id: id
+            }, () => {
+                $('.row' + id).remove();
+            } );
+        } );
+
+        return;
+    }
     $( '.delete-crew, .restore-crew' ).click( ( e ) => {
         e.preventDefault();
-
-        const $tgt = e.target.tagName === 'A' ? $( e.target ) : $( e.target ).parent();
-        const id = $tgt.data( 'id' );
 
         if ( $tgt.hasClass( 'delete-crew' ) ) {
             post( 'delete', {
@@ -131,6 +148,46 @@ const appendHTML = ( row ) => {
 };
 
 /**
+ * List notifications
+ *
+ * @param data - data to append
+ * @param rank - rank name (optional)
+ */
+function listNotifications( data, rank ) {
+    rank = rank || false
+    const classes = 'text-truncate border-top border-bottom border-right font-weight-bold';
+    let html = `
+        <div class="row">
+            <div class="col-1 p-2 border-left ${classes}">ID</div>
+            <div class="col-3 p-2 ${classes}">Title</div>
+            <div class="col-${rank ? '5' : '3'} p-2 ${classes}">Content</div>
+            ${rank ? '' : `<div class="col-3 p-2 ${classes}">Rank</div>`}
+            <div class="col-2 p-2 ${classes}">Actions</div>
+    `;
+
+    data.map( ( row ) => {
+        html += `
+            <div class="col-1 p-2 border-left ${classes}">${row.id}</div>
+            <div class="col-3 p-2 ${classes}">${row.title}</div>
+            <div class="col-${rank ? '5' : '3'} p-2 ${classes}">${row.content}</div>
+            ${rank ? '' : `<div class="col-3 p-2 ${classes}">${row.rank_name}</div>`}
+            <div class="col-2 p-2 ${classes}">
+                <a class="edit-notification" href="editNotification/${row.id}" title="Edit">
+                    <img src="assets/images/pencil.svg" alt="Edit">
+                </a>
+                <a class="delete-notification" href="#" title="Delete" data-id="${row.id}">
+                    <img src="assets/images/trash.svg" alt="Delete">
+                </a>
+            </div>
+        `;
+    } );
+
+    html += '</div><div class="pt-5"><a class="btn btn-primary text-white" href="addNotification">Add Notification</a></div>';
+    ( '#page' ).append( html );
+    addDeleteHandlers( true );
+}
+
+/**
  * Generate HTML from data and append to page
  *
  * @param data - data to append
@@ -140,14 +197,14 @@ function listCrew( data, addedHtml ) {
     addedHtml = addedHtml || false
     const classes = 'text-truncate border-top border-bottom border-right font-weight-bold';
     let html = `
-            <div class="row">
-                <div class="col-1 p-2 border-left ${classes}">ID</div>
-                <div class="col-3 p-2 ${classes}">Name</div>
-                <div class="col-2 p-2 ${classes}">Email</div>
-                <div class="col-2 p-2 ${classes}">Rank</div>
-                <div class="col-2 p-2 ${classes}">Ship</div>
-                <div class="col-2 p-2 ${classes}">Actions</div>
-        `;
+        <div class="row">
+            <div class="col-1 p-2 border-left ${classes}">ID</div>
+            <div class="col-3 p-2 ${classes}">Name</div>
+            <div class="col-2 p-2 ${classes}">Email</div>
+            <div class="col-2 p-2 ${classes}">Rank</div>
+            <div class="col-2 p-2 ${classes}">Ship</div>
+            <div class="col-2 p-2 ${classes}">Actions</div>
+    `;
 
     data.map( ( row ) => {
         html += appendHTML( row );

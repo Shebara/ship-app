@@ -15,10 +15,7 @@ const assignData = ( data ) => {
         <hr/>
         <h4>Notifications for this Rank</h4>
     ` : '' );
-    data.notifications.map( ( notification ) => {
-        console.log( notification );
-    } );
-    //TODO display notifications and add notification button, extract notification function
+    listNotifications( data.notifications );
 }
 
 /**
