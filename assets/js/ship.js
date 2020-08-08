@@ -4,15 +4,13 @@
  * @param data
  */
 const assignData = ( data ) => {
-    const html = `
+    $( '#page' ).html( `
         <img src="${data.image_url}" alt="${data.name}" />
         <h2>${data.name}</h2>
         <h4>Serial Number: ${data.serial_number}</h4>
         <hr />
         <h4>Crew</h4>
-    `;
-
-    $( '#page' ).html( html );
+    ` );
     listCrew( data.crew );
 }
 

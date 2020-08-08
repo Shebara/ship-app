@@ -4,9 +4,21 @@
  * @param data
  */
 const assignData = ( data ) => {
-    console.log( data );
+    const $page = $( '#page' );
 
-    listCrew( data.crew );
+    $page.html( `
+        <h2>${data.name}</h2>
+        <hr />
+        <h4>Crew with this Rank</h4>
+    ` );
+    listCrew( data.crew, data.notifications.length > 0 ? `
+        <hr/>
+        <h4>Notifications for this Rank</h4>
+    ` : '' );
+    data.notifications.map( ( notification ) => {
+        console.log( notification );
+    } );
+    //TODO display notifications and add notification button, extract notification function
 }
 
 /**
